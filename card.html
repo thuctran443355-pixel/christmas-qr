@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>🎁 Merry Christmas 🎄</title>
+  <style>
+    body {
+      background: linear-gradient(120deg, #ff0000, #ffb347);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Segoe UI';
+      color: white;
+      text-align: center;
+      animation: bg 6s infinite alternate;
+    }
+
+    @keyframes bg {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(40deg); }
+    }
+
+    .card {
+      background: rgba(255,255,255,0.2);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 0 50px rgba(255,255,255,0.8);
+      animation: pop 1.5s ease;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+
+    h1 {
+      font-size: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🎄 Merry Christmas 🎄</h1>
+    <p>Chúc bạn một mùa Giáng Sinh</p>
+    <p>🎁 An lành – Hạnh phúc – Ngập tràn yêu thương ❤️</p>
+  </div>
+</body>
+</html>
