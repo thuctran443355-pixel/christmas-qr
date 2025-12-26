@@ -1,152 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>🎄 Merry Christmas 🎁</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
-
-    body {
-      height: 100vh;
-      background: radial-gradient(circle at top, #b31217, #000);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      color: white;
-    }
-
-    .card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 50px 40px;
-      border-radius: 30px;
-      backdrop-filter: blur(15px);
-      text-align: center;
-      box-shadow: 0 0 60px rgba(255, 255, 255, 0.7);
-      animation: pop 1.5s ease;
-    }
-
-    @keyframes pop {
-      from {
-        transform: scale(0) rotate(-10deg);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1) rotate(0);
-        opacity: 1;
-      }
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      margin-bottom: 20px;
-      text-shadow: 0 0 20px gold;
-    }
-
-    p {
-      font-size: 1.4rem;
-      line-height: 1.6;
-      text-shadow: 0 0 10px rgba(255,255,255,0.8);
-    }
-
-    .from {
-      margin-top: 25px;
-      font-size: 1.1rem;
-      opacity: 0.9;
-    }
-
-    .star {
-      position: absolute;
-      top: -25px;
-      right: -25px;
-      font-size: 3rem;
-      animation: spin 6s linear infinite;
-      color: gold;
-      text-shadow: 0 0 25px gold;
-    }
-
-    @keyframes spin {
-      from { transform: rotate(0); }
-      to { transform: rotate(360deg); }
-    }
-
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Thiệp Bất Ngờ — Mưa Tên Sống Động</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- confetti canvas (behind everything) -->
+  <canvas id="confetti" aria-hidden="true"></canvas>
 
-  <canvas id="snow"></canvas>
+  <!-- name rain canvas (between background and card) -->
+  <canvas id="nameRainCanvas" aria-hidden="true"></canvas>
 
-  <div class="card">
-    <div class="star">⭐</div>
-    <h1>🎄 Merry Christmas 🎄</h1>
-    <p>
-      Thức Trần Official chúc bạn<br>
-      <strong>giáng sinh an lành</strong>
-    </p>
-    <div class="from">✨ With love & warmth ✨</div>
-  </div>
+  <main class="stage" role="main">
+    <!-- Welcome overlay -->
+    <section id="welcome" class="welcome" aria-hidden="false">
+      <div class="welcome-card" role="region" aria-label="Lời mời mở quà">
+        <h1 class="welcome-title">Có một điều bất ngờ cho bạn 🎁</h1>
+        <p class="welcome-desc">Ấn nút bên dưới để mở thiệp — chuẩn bị sẵn sàng cho một chút phép màu ✨</p>
+        <button id="openBtn" class="btn-open" aria-label="Mở bất ngờ">Mở bất ngờ</button>
+      </div>
+    </section>
 
-  <script>
-    // Snow effect
-    const canvas = document.getElementById("snow");
-    const ctx = canvas.getContext("2d");
+    <!-- Card -->
+    <section id="card" class="card hidden" aria-hidden="true" aria-live="polite">
+      <div class="card-layer card-bg"></div>
+      <div class="card-layer card-glow"></div>
+      <div class="card-inner" id="cardInner" tabindex="0" role="article" aria-label="Thiệp chúc mừng">
+        <h2 id="cardTitle" class="card-title"></h2>
+        <p id="cardMsg" class="card-message"></p>
+        <div class="card-decor">
+          <div class="sparkles" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let flakes = [];
-
-    for (let i = 0; i < 120; i++) {
-      flakes.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 3 + 1,
-        d: Math.random() + 1
-      });
-    }
-
-    function drawSnow() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "white";
-      ctx.beginPath();
-      flakes.forEach(f => {
-        ctx.moveTo(f.x, f.y);
-        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-      });
-      ctx.fill();
-      moveSnow();
-    }
-
-    let angle = 0;
-    function moveSnow() {
-      angle += 0.01;
-      flakes.forEach(f => {
-        f.y += Math.pow(f.d, 2) + 0.5;
-        f.x += Math.sin(angle) * 0.4;
-
-        if (f.y > canvas.height) {
-          f.y = 0;
-          f.x = Math.random() * canvas.width;
-        }
-      });
-    }
-
-    setInterval(drawSnow, 30);
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
